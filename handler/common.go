@@ -2,25 +2,13 @@ package handler
 
 import (
 	"encoding/json"
-	"errors"
 	"github.com/sirupsen/logrus"
 	"io"
 	"net/http"
 )
 
 func jsonRequest(r *http.Request, t interface{}) error {
-	body := make([]byte, r.ContentLength)
-	n, err := r.Body.Read(body)
-
-	if n == 0 {
-		return errors.New("request body is empty")
-	}
-
-	if err != nil && err != io.EOF {
-		return err
-	}
-
-	err = json.NewDecoder(r.Body).Decode(t)
+	err := json.NewDecoder(r.Body).Decode(t)
 
 	if err != nil && err != io.EOF {
 		return err
