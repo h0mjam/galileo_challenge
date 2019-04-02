@@ -1,7 +1,6 @@
 package store
 
 import (
-	"errors"
 	"galileo/types"
 	"sync"
 )
@@ -44,7 +43,7 @@ func (store *userStore) FindByEmail(k string) (*types.User, error) {
 		return v, nil
 	}
 
-	return nil, errors.New("record not found")
+	return nil, ErrNotFound
 }
 
 func (store *userStore) FindByToken(k string) (*types.User, error) {
@@ -57,7 +56,7 @@ func (store *userStore) FindByToken(k string) (*types.User, error) {
 		return v, nil
 	}
 
-	return nil, errors.New("record not found")
+	return nil, ErrNotFound
 }
 
 func (store *userStore) AppendDevice(userToken string, device *types.Device) error {

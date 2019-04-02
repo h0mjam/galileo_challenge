@@ -59,7 +59,7 @@ func UserDevices(store types.UserStore) http.HandlerFunc {
 			return
 		}
 
-		body, err := json.Marshal([]*types.Device(user.Devices.All()))
+		body, err := json.Marshal(user.Devices.All())
 
 		if err != nil {
 			http.Error(w, "Internal error", 500)

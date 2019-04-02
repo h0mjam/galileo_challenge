@@ -2,7 +2,7 @@ package handler
 
 import (
 	"encoding/json"
-	"fmt"
+	"errors"
 	"github.com/sirupsen/logrus"
 	"io"
 	"net/http"
@@ -13,14 +13,20 @@ func jsonRequest(r *http.Request, t interface{}) error {
 	n, err := r.Body.Read(body)
 
 	if n == 0 {
-		return fmt.Errorf("request body is empty")
+		return errors.New("request body is empty")
 	}
 
 	if err != nil && err != io.EOF {
 		return err
 	}
 
-	err = json.Unmarshal(body, t)
+	err = json.NewDecoder(r.Body).Decode(t)
+
+	if err != nil && err != io.EOF {
+		return err
+	}
+
+	err = r.Body.Close()
 
 	if err != nil {
 		return err
