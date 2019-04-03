@@ -64,7 +64,7 @@ func (store *deviceStore) FindByToken(k string) (*types.Device, error) {
 }
 
 func (store *deviceStore) All() []*types.Device {
-	devices := make([]*types.Device, len(store.byID))
+	devices := make([]*types.Device, 0)
 	for _, d := range store.byID {
 		devices = append(devices, d)
 	}

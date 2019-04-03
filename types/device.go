@@ -5,11 +5,11 @@ import (
 )
 
 type Device struct {
-	ID           uint64    `json:"id"`
-	Name         string    `json:"name"`
-	Token        string    `json:"-"`
-	LastModified time.Time `json:"last_modified"`
-	Measures     map[int64]*Measure
+	ID           uint64             `json:"id"`
+	Name         string             `json:"name"`
+	Token        string             `json:"-"`
+	LastModified time.Time          `json:"last_modified"`
+	Measures     map[int64]*Measure `json:"-"`
 }
 
 func (d *Device) AppendMeasure(m *Measure) {

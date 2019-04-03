@@ -83,7 +83,12 @@ func DeviceStat(store types.UserStore) http.HandlerFunc {
 			return
 		}
 
-		resp, err := json.Marshal(device.Measures)
+		mes := make([]*types.Measure, 0)
+		for _, m := range device.Measures {
+			mes = append(mes, m)
+		}
+
+		resp, err := json.Marshal(mes)
 
 		if err != nil {
 			http.Error(w, "Internal error", 500)
